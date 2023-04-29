@@ -20,20 +20,6 @@ export function filterCountries(continent){
     }
 }
 
-export function orderCountries(order){
-    return{
-        type: "ORDER_COUNTRIES",
-        payload: order
-    }
-}
-
-export function orderPoblacion(order){
-    return{
-        type: "ORDER_POBLACION",
-        payload: order
-    }
-}
-
 export function addActivities(activities){
     return{
         type: "ADD_ACTIVITIES",

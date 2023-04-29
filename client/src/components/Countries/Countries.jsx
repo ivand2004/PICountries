@@ -2,34 +2,15 @@ import { useEffect, useState } from "react"
 import { Country } from "../Country/Country"
 import { useDispatch, useSelector } from "react-redux"
 import s from "./Countries.css"
-import { filterActivities, filterCountries, loadActivities, orderCountries, orderPoblacion } from "../../redux/actions"
-
-// CHEQUEAR TEMA DE REDUCER
-
-//REDUCER
-/*
-ALLCountries
-SearchedCountries
-Activities
-Continent: String
-Activity: String
-filteredCountries: []
-*/
-/* 
-
-
-El dispatch del filtro deberia cambiar la string, y luego modificar filteredCountries, dependiendo si se busco algo antes(SearchedCountries) o no (AllCountries).
-El boton Home, deberia resetear todo (Continent, Activity, searchedCountries y filteredCountries)
-
-O PUEDO  TENER OTROS 2 ARREGLOS, UNO QUE TENGA LOS FILTRADOS POR CONTINENTE Y OTRO POR ACTIVIDAD, Y QUE SE VAYAN HACIENDO SEGUN LO QUE TENIA.
-*/
+import { filterActivities, filterCountries, loadActivities} from "../../redux/actions"
 
 export function Countries(){
     const [countries, setCountries] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const allCountries = useSelector(state => state.allCountries)
     const searchedCountries = useSelector(state => state.searchedCountries)
-    const filterOrderCountries = useSelector(state => state.filterOrderCountries)
+    const filteredByContinent = useSelector(state => state.filteredByContinent)
+    const filteredByActivity = useSelector(state => state.filteredByActivity)
     const continents = []
     allCountries?.forEach(c => {
       if(!continents.includes(c.continent)) continents.push(c.continent)
@@ -38,30 +19,42 @@ export function Countries(){
     const dispatch = useDispatch()
 
   useEffect(() => {
-    if(filterOrderCountries.length > 0) setCountries(filterOrderCountries)
-    else if(searchedCountries.length > 0) setCountries(searchedCountries)
-    else setCountries(allCountries)
+    if(filteredByContinent?.length > 0) setCountries(filteredByContinent)
+    else if (filteredByActivity?.length > 0) setCountries(filteredByActivity)
+    else if(searchedCountries?.length > 0) setCountries(searchedCountries)
+    else if(allCountries?.length >0) setCountries(allCountries)
     loadActivities(dispatch)
     setCurrentPage(1)
-  }, [searchedCountries, filterOrderCountries])
+  }, [allCountries, searchedCountries, filteredByContinent, filteredByActivity])
 
   function pagination(){
     return countries?.slice((currentPage-1)*10, (currentPage)*10)
   }
 
   function filterCountriesChange(continent){
+    console.log(continent);
       dispatch(filterCountries(continent))
       document.getElementById("orderCountries").value = ""
   }
 
   function orderCountriesChange(value){
-    if(value)dispatch(orderCountries(value))
+    let copycountries = [...countries]
+    if(value === "ascendente") {
+      setCountries(copycountries.sort((a,b) => a.name.localeCompare(b.name)))
+    }else if(value === "descendente"){
+      setCountries(copycountries.sort((a,b) => b.name.localeCompare(a.name)))
+    }
     document.getElementById("orderPoblacion").value = ""
     setCurrentPage(1)
   }
 
   function orderPoblacionChange(value){
-    if(value) dispatch(orderPoblacion(value))
+    let copycountries = [...countries]
+    if(value === "ascendente") {
+      setCountries(copycountries.sort((a,b) => a.population - b.population))
+    }else if(value === "descendente"){
+      setCountries(copycountries.sort((a,b) => b.population - a.population))
+    }
     document.getElementById("orderCountries").value = ""
     setCurrentPage(1)
   }
@@ -75,12 +68,12 @@ export function Countries(){
         <div className="container">
           <div className="controllers">
           <select name="filterContinent" id="filterContinent" onChange={() => filterCountriesChange(document.getElementById("filterContinent").value)}>
-            <option>Continent</option>
+            <option>Todos</option>
             {continents?.map(c => <option value={c}>{c}</option>)}
           </select>
           {activities?.length > 0 ?
           <select name="filterActivity" id="filterActivity" onChange={() => filterActivity(document.getElementById("filterActivity").value)}>
-            <option>Activity</option>
+            <option>Actividad</option>
             {activities?.map(a => <option value={a.id}>{a.name}</option>)}
           </select>: null}
           <label htmlFor="orderCountries">Ordenar Paises segun orden alfabetico</label>

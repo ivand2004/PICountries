@@ -1,7 +1,8 @@
 const initialState = {
     allCountries: [],
     searchedCountries : [],
-    filterOrderCountries: [],
+    filteredByContinent: [],
+    filteredByActivity: [],
     activities: []
 }
 
@@ -9,144 +10,71 @@ export default function rootReducer(state = initialState, action){
     switch(action.type){
         case "ADD_COUNTRIES":
             return{
-                allCountries: state.allCountries,
+                ...state,
                 searchedCountries: [...action.payload],
-                filterOrderCountries: [], // Una vez que se busca, reseteo este arreglo, asi no pisa el arreglo de busqueda
-                activities: state.activities
+                filteredByContinent: [],
+                filteredByActivity: [],
             }
         case "FILTER_COUNTRIES":
-            if(state.filterOrderCountries.length > 0){
-                // if([...state.filterOrderCountries.filter(c => c.continent === action.payload)].length === 0) { // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
-                //     alert("No hay paises que coincidan") // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
-                //     return {...state} // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
-                // }
+            if(state.filteredByActivity.length>0){
+                if([...state.filteredByActivity.filter(c => c.continent === action.payload)].length === 0) {
+                    alert("No hay paises que coincidan")
+                    return {...state}
+                } //SI NO SE CUMPLE CON LA CONDICION, TENGO QUE PODER AVISAR Y DECIR, CHE, NO HAY NADA ACA.
                 return {
-                    allCountries: state.allCountries,
-                    searchedCountries: state.searchedCountries,
-                    filterOrderCountries: [...state.filterOrderCountries.filter(c => c.continent === action.payload)],
-                    activities: state.activities
+                    ...state,
+                    filteredByContinent: [...state.filteredByActivity.filter(c => c.continent === action.payload)],
+                    filteredByActivity: [], // La reseteo por si habia algo (?)
                 }
-            } else if(state.searchedCountries.length > 0){
-                // if([...state.searchedCountries.filter(c => c.continent === action.payload)].length === 0) { // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
-                //     alert("No hay paises que coincidan") // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
-                //     return state// ESTO NO ME CONVENCE, NO SE DEBERIA PODER
-                // }
+        }else if(state.searchedCountries.length>0){
+            if([...state.searchedCountries.filter(c => c.continent === action.payload)].length === 0) {
+                alert("No hay paises que coincidan")
+                return {...state}
+            }//SI NO SE CUMPLE CON LA CONDICION, TENGO QUE PODER AVISAR Y DECIR, CHE, NO HAY NADA ACA.
             return {
-                allCountries: state.allCountries,
-                searchedCountries: state.searchedCountries,
-                filterOrderCountries: [...state.searchedCountries.filter(c => c.continent === action.payload)],
-                activities: state.activities
-            }
-        }else{
-            return {
-                allCountries: state.allCountries,
-                searchedCountries: state.searchedCountries,
-                filterOrderCountries: [...state.allCountries.filter(c => c.continent === action.payload)],
-                activities: state.activities
+                ...state,
+                filteredByContinent: [...state.searchedCountries.filter(c => c.continent === action.payload)],
             }
         }
-        case "ORDER_COUNTRIES":
-            if(state.filterOrderCountries.length > 0){ // Primero chequeo si hay algo, si hay algo, acomodo eso, si no, acomodo todo
-                if(action.payload === "ascendente") return {
-                    allCountries: state.allCountries,
-                    searchedCountries: state.searchedCountries,
-                    filterOrderCountries: [...state.filterOrderCountries.sort((a,b) => a.name.localeCompare(b.name))],
-                    activities: state.activities
-                }
-                else if(action.payload === "descendente")return {
-                    allCountries: state.allCountries,
-                    searchedCountries: state.searchedCountries,
-                    filterOrderCountries: [...state.filterOrderCountries.sort((a,b) => b.name.localeCompare(a.name))],
-                    activities: state.activities
-                }
-            } else if(state.searchedCountries.length > 0){
-                if(action.payload === "ascendente") return {
-                    allCountries: state.allCountries,
-                    searchedCountries: state.searchedCountries,
-                    filterOrderCountries: [...state.searchedCountries.sort((a,b) => a.name.localeCompare(b.name))],
-                    activities: state.activities
-                }
-                else if(action.payload === "descendente")return {
-                    allCountries: state.allCountries,
-                    searchedCountries: state.searchedCountries,
-                    filterOrderCountries: [...state.searchedCountries.sort((a,b) => b.name.localeCompare(a.name))],
-                    activities: state.activities
-                }
-            }else {
-            if(action.payload === "ascendente") return {
-                allCountries: state.allCountries,
-                searchedCountries: state.searchedCountries,
-                filterOrderCountries: [...state.allCountries.sort((a,b) => a.name.localeCompare(b.name))],
-                activities: state.activities
-            }
-            else if(action.payload === "descendente")return {
-                allCountries: state.allCountries,
-                searchedCountries: state.searchedCountries,
-                filterOrderCountries: [...state.allCountries.sort((a,b) => b.name.localeCompare(a.name))],
-                activities: state.activities
-            }
-        }
-        case "ORDER_POBLACION":
-            if(state.filterOrderCountries.length > 0){ // Primero chequeo si hay algo, si hay algo, acomodo eso, si no, acomodo todo
-                if(action.payload === "ascendente") return {
-                    allCountries: state.allCountries,
-                    searchedCountries: state.searchedCountries,
-                    filterOrderCountries: [...state.filterOrderCountries.sort((a,b) => a.population - b.population)],
-                    activities: state.activities
-                }
-                else if(action.payload === "descendente")return {
-                    allCountries: state.allCountries,
-                    searchedCountries: state.searchedCountries,
-                    filterOrderCountries: [...state.filterOrderCountries.sort((a,b) => b.population - a.population)],
-                    activities: state.activities
-                }
-            }else if(state.searchedCountries.length > 0){ // Primero chequeo si hay algo, si hay algo, acomodo eso, si no, acomodo todo
-                if(action.payload === "ascendente") return {
-                    allCountries: state.allCountries,
-                    searchedCountries: state.searchedCountries,
-                    filterOrderCountries: [...state.searchedCountries.sort((a,b) => a.population - b.population)],
-                    activities: state.activities
-                }
-                else if(action.payload === "descendente")return {
-                    allCountries: state.allCountries,
-                    searchedCountries: state.searchedCountries,
-                    filterOrderCountries: [...state.searchedCountries.sort((a,b) => b.population - a.population)],
-                    activities: state.activities
-                }
-            }else {
-                if(action.payload === "ascendente") return {
-                    allCountries: state.allCountries,
-                    searchedCountries: state.searchedCountries,
-                    filterOrderCountries: [...state.allCountries.sort((a,b) => a.population - b.population)],
-                    activities: state.activities
-                }
-                else if(action.payload === "descendente")return {
-                    allCountries: state.allCountries,
-                    searchedCountries: state.searchedCountries,
-                    filterOrderCountries: [...state.allCountries.sort((a,b) => b.population - a.population)],
-                    activities: state.activities
-                }
+            return {
+                ...state,
+                filteredByContinent: [...state.allCountries.filter(c => c.continent === action.payload)],
             }
         case "ADD_ACTIVITIES":
             return{
-                allCountries: [...state.allCountries],
-                searchedCountries: state.searchedCountries,
-                filterOrderCountries: state.filterOrderCountries,
+                ...state,
                 activities: action.payload
             }
         case "FILTER_ACTIVITIES":
-            return{
-                allCountries: [...state.allCountries],
-                searchedCountries: state.searchedCountries,
-                filterOrderCountries: [...state.allCountries.filter(c => c.activities?.some(activity => activity.id === action.payload))],
-                activities: [...state.activities]
+            if(state.filteredByContinent.length>0){
+                if([...state.filteredByContinent.filter(c => c.activities?.some(activity => activity.id === action.payload))].length === 0) {
+                    alert("No hay paises que coincidan")
+                    return {...state}
+                }
+                return {
+                    ...state,
+                    filteredByContinent: [], // Lo reseteo por si habia algo, asi no se pisan, en el UseEffect, el chequeo de filtered by continent va primero, por eso lo piso
+                    filteredByActivity: [...state.filteredByContinent.filter(c => c.activities?.some(activity => activity.id === action.payload))],
+                }
+        }else if(state.searchedCountries.length>0){
+            if([...state.searchedCountries.filter(c => c.activities?.some(activity => activity.id === action.payload))].length === 0) {
+                alert("No hay paises que coincidan")
+                return {...state}
             }
+            return {
+                ...state,
+                filteredByActivity: [...state.searchedCountries.filter(c => c.activities?.some(activity => activity.id === action.payload))],
+            }
+        }else{
+            return {
+                ...state,
+                filteredByActivity: [...state.allCountries.filter(c => c.activities?.some(activity => activity.id === action.payload))],
+            }
+        }
         case "FETCH_COUNTRIES":
             return{
-                allCountries: [...action.payload],
-                searchedCountries: [...state.searchedCountries],
-                filterOrderCountries: state.filterOrderCountries,
-                activities: state.activities
+                ...state,
+                allCountries: action.payload,
             }
         default:
             return {...state}

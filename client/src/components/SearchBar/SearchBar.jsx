@@ -5,17 +5,18 @@ export default function SearchBar() {
    const dispatch = useDispatch()
 
    function searchCountryClick(value){
-         searchCountry(value, dispatch)
-         document.getElementById("searchCountry").value = ""
+      searchCountry(value, dispatch)
       document.getElementById("orderCountries").value = ""
-      document.getElementById("filterContinent").value = "Continent"
+      document.getElementById("filterContinent").value = "Todos"
+      document.getElementById("filterActivity").value = "Actividad"
    }
 
    function resetCountries(){
       dispatch(addCountries([]))
       document.getElementById("searchCountry").value = ""
       document.getElementById("orderCountries").value = ""
-      document.getElementById("filterContinent").value = "Continent"
+      document.getElementById("filterContinent").value = "Todos"
+      document.getElementById("filterActivity").value = "Actividad"
    }
 
    return (
