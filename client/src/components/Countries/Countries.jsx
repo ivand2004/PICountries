@@ -3,6 +3,7 @@ import { Country } from "../Country/Country"
 import { useDispatch, useSelector } from "react-redux"
 import s from "./Countries.css"
 import { filterActivities, filterCountries, loadActivities} from "../../redux/actions"
+import { Pagination } from "../Pagination/Pagination"
 
 export function Countries(){
     const [countries, setCountries] = useState([])
@@ -88,24 +89,12 @@ export function Countries(){
               <option value="ascendente">Ascendente</option>
               <option value="descendente">Descendente</option>
           </select>
-          <div className="paginateList">
-      {currentPage !== 1? <button onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>: null}
-          {Array.from({ length: Math.ceil(countries?.length / 10) }, (v, i) => (
-            <button key={i} onClick={() => setCurrentPage(i + 1)}>{i + 1}</button>
-          ))}
-          {currentPage !== Array.from({ length: Math.ceil(countries?.length / 10) }).length ? <button onClick={() => setCurrentPage(currentPage + 1)}>Next</button>: null}
-          </div>
+          <Pagination countries={countries} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
           </div>
           <div className="countryContainer">
             {pagination().map(c => <Country key={c.id} id={c.id} name={c.name} image={c.flag} continent={c.continent}/>)}
             </div>
-            <div className="paginateList">
-      {currentPage !== 1? <button onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>: null}
-          {Array.from({ length: Math.ceil(countries?.length / 10) }, (v, i) => (
-            <button key={i} onClick={() => setCurrentPage(i + 1)}>{i + 1}</button>
-          ))}
-          {currentPage !== Array.from({ length: Math.ceil(countries?.length / 10) }).length ? <button onClick={() => setCurrentPage(currentPage + 1)}>Next</button>: null}
-          </div>
+            <Pagination countries={countries} setCurrentPage={setCurrentPage} currentPage={currentPage}/>
         </div>
     )
 }
