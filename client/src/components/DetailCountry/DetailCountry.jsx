@@ -1,15 +1,19 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 
 export function DetailCountry(){
     let {idPais} = useParams()
     const [country, setCountry] = useState();
+    const navigate = useNavigate()
 
     useEffect(() => {
         axios.get(`http://localhost:3001/countries/${idPais}`)
         .then(r => setCountry(r.data))
-        .catch(err => console.log(err.message))
+        .catch(err => {
+            alert(err.response.data)
+            navigate("../countries")
+        })
     }, [idPais])
  //Chequear si no hay que mostrar las actividades
 

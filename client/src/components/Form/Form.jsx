@@ -28,13 +28,15 @@ export default function Form(props){
         }) // Como los numeros llegan como str, los paso a numeros
          // Cuando se carga la pagina, y se hace directo un submit, los errores cambian despues del submit, por lo cual sigue haciendo el POST.
          setErrors(validate({...inputs}))
-        if(Object.entries(errors).length === 0){
+        if(Object.entries(errors).length === 0 && Object.entries(inputs) === 5){
             axios.post("http://localhost:3001/activities", inputs)
             .then(() => {
                 setInputs({name: "", difficulty: "", duration: "", season: "Verano", countriesIds: []})
                 alert("Actividad creada")
             })
             .catch(err => alert(err))
+        }else if(Object.entries(inputs) !== 5){
+            alert("Faltan datos")
         }
     }
 

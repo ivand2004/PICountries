@@ -4,11 +4,14 @@ import { useDispatch, useSelector } from "react-redux"
 import s from "./Countries.css"
 import { filterActivities, filterCountries, loadActivities, orderCountries, orderPoblacion } from "../../redux/actions"
 
+// CHEQUEAR TEMA DE REDUCER
+
 export function Countries(){
     const [countries, setCountries] = useState([])
     const [currentPage, setCurrentPage] = useState(1);
     const allCountries = useSelector(state => state.allCountries)
     const searchedCountries = useSelector(state => state.searchedCountries)
+    const filterOrderCountries = useSelector(state => state.filterOrderCountries)
     const continents = []
     allCountries?.forEach(c => {
       if(!continents.includes(c.continent)) continents.push(c.continent)
@@ -17,11 +20,12 @@ export function Countries(){
     const dispatch = useDispatch()
 
   useEffect(() => {
-    if(searchedCountries.length > 0) setCountries(searchedCountries)
+    if(filterOrderCountries.length > 0) setCountries(filterOrderCountries)
+    else if(searchedCountries.length > 0) setCountries(searchedCountries)
     else setCountries(allCountries)
     loadActivities(dispatch)
     setCurrentPage(1)
-  }, [searchedCountries])
+  }, [searchedCountries, filterOrderCountries])
 
   function pagination(){
     return countries?.slice((currentPage-1)*10, (currentPage)*10)
@@ -30,8 +34,7 @@ export function Countries(){
   function filterCountriesChange(continent){
       dispatch(filterCountries(continent))
       document.getElementById("orderCountries").value = ""
-  } //Ojo con esto, con el primer pais lo hace bien, pero despues como quedna cosas en Searchedactivities, intenta filtrarlos de ahi, habria que ver que hacer, si crear un nuevo estado o que, o, escribir un codigo que aprete el boton Home para que se resetee y lo vuelva a mostrar
-
+  }
 
   function orderCountriesChange(value){
     if(value)dispatch(orderCountries(value))
@@ -40,7 +43,7 @@ export function Countries(){
   }
 
   function orderPoblacionChange(value){
-    if(value)dispatch(orderPoblacion(value))
+    if(value) dispatch(orderPoblacion(value))
     document.getElementById("orderCountries").value = ""
     setCurrentPage(1)
   }
@@ -49,7 +52,7 @@ export function Countries(){
     if(activity !== "Activity") dispatch(filterActivities(Number(activity)))//Se lo paso como numero porque llega como string
     setCurrentPage(1)
   }
-  //Si se cliquea el de poblacion, deberia resetear el de orden alfabetico y viceversa. Deberia resetear cuando aprete Home.
+
     return(
         <div className="container">
           <div className="controllers">
@@ -62,7 +65,6 @@ export function Countries(){
             <option>Activity</option>
             {activities?.map(a => <option value={a.id}>{a.name}</option>)}
           </select>: null}
-          {/* Habria que buscar el filtrado segun tipo de actividad, pero ni idea que es eso*/}
           <label htmlFor="orderCountries">Ordenar Paises segun orden alfabetico</label>
           <select name="orderCountries" id="orderCountries" onChange={() => orderCountriesChange(document.getElementById("orderCountries").value)}>
             <option></option>
