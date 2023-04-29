@@ -6,6 +6,24 @@ import { filterActivities, filterCountries, loadActivities, orderCountries, orde
 
 // CHEQUEAR TEMA DE REDUCER
 
+//REDUCER
+/*
+ALLCountries
+SearchedCountries
+Activities
+Continent: String
+Activity: String
+filteredCountries: []
+*/
+/* 
+
+
+El dispatch del filtro deberia cambiar la string, y luego modificar filteredCountries, dependiendo si se busco algo antes(SearchedCountries) o no (AllCountries).
+El boton Home, deberia resetear todo (Continent, Activity, searchedCountries y filteredCountries)
+
+O PUEDO  TENER OTROS 2 ARREGLOS, UNO QUE TENGA LOS FILTRADOS POR CONTINENTE Y OTRO POR ACTIVIDAD, Y QUE SE VAYAN HACIENDO SEGUN LO QUE TENIA.
+*/
+
 export function Countries(){
     const [countries, setCountries] = useState([])
     const [currentPage, setCurrentPage] = useState(1);

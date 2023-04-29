@@ -16,10 +16,10 @@ export default function rootReducer(state = initialState, action){
             }
         case "FILTER_COUNTRIES":
             if(state.filterOrderCountries.length > 0){
-                if([...state.filterOrderCountries.filter(c => c.continent === action.payload)].length === 0) { // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
-                    alert("No hay paises que coincidan") // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
-                    return {...state} // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
-                }
+                // if([...state.filterOrderCountries.filter(c => c.continent === action.payload)].length === 0) { // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
+                //     alert("No hay paises que coincidan") // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
+                //     return {...state} // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
+                // }
                 return {
                     allCountries: state.allCountries,
                     searchedCountries: state.searchedCountries,
@@ -27,10 +27,10 @@ export default function rootReducer(state = initialState, action){
                     activities: state.activities
                 }
             } else if(state.searchedCountries.length > 0){
-                if([...state.searchedCountries.filter(c => c.continent === action.payload)].length === 0) { // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
-                    alert("No hay paises que coincidan") // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
-                    return state// ESTO NO ME CONVENCE, NO SE DEBERIA PODER
-                }
+                // if([...state.searchedCountries.filter(c => c.continent === action.payload)].length === 0) { // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
+                //     alert("No hay paises que coincidan") // ESTO NO ME CONVENCE, NO SE DEBERIA PODER
+                //     return state// ESTO NO ME CONVENCE, NO SE DEBERIA PODER
+                // }
             return {
                 allCountries: state.allCountries,
                 searchedCountries: state.searchedCountries,

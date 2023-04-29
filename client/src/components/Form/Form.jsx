@@ -28,15 +28,13 @@ export default function Form(props){
         }) // Como los numeros llegan como str, los paso a numeros
          // Cuando se carga la pagina, y se hace directo un submit, los errores cambian despues del submit, por lo cual sigue haciendo el POST.
          setErrors(validate({...inputs}))
-        if(Object.entries(errors).length === 0 && Object.entries(inputs) === 5){
+        if(Object.entries(errors).length === 0){
             axios.post("http://localhost:3001/activities", inputs)
             .then(() => {
                 setInputs({name: "", difficulty: "", duration: "", season: "Verano", countriesIds: []})
                 alert("Actividad creada")
             })
             .catch(err => alert(err))
-        }else if(Object.entries(inputs) !== 5){
-            alert("Faltan datos")
         }
     }
 
@@ -69,7 +67,7 @@ export default function Form(props){
         <label htmlFor="countries">Pais/Paises: </label>
         <select name="countries" onChange={handleInputChange}>
             <option></option> {/* Agregue esta opcion en blanco para que me dej tocar la primera opcion, sin tener que elegir otra antes*/}
-            {countries?.sort((a,b) => a.name.localeCompare(b.name)).map(c => <option value={c.id}>{c.name}</option>)}
+            {countries?.sort((a,b) => a.name.localeCompare(b.name)).map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
         </select>
         {inputs.countriesIds.map(c => <span>{
         countries.find(country => country.id === c).name
