@@ -24,7 +24,7 @@ export function DetailCountry(){
             <img src={country?.flag} alt={country?.name} className="image-tag"/>
             <h3 className="continent-tag">Continente: {country?.continent}</h3>
             <h3 className="capital-tag">Capital: {country?.capital}</h3>
-            <h5 className="population-tag">Poblacion: {Number(country?.population).toLocaleString()}</h5>
+            <h5 className="population-tag">Poblacion: {Number(country?.population).toLocaleString()} habitantes</h5>
             <h3 className="activity-tag">Actividades</h3>
             <ul className="activity-list">
                 {country?.activities.length>0? country?.activities.map(a => <li className="activity-li">{a.name}, durante {a.season}, con una duracion de {a.duration} horas</li>): <h5>No hay actividades asignadas para este pais</h5>}

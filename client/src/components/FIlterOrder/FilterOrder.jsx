@@ -53,13 +53,13 @@ export function FilterOrder(props){
             <option value="0">Actividad</option>
             {props.activities?.map(a => <option value={a.id}>{a.name}</option>)}
           </select>: null}
-          <label htmlFor="orderCountries">Ordenar Paises segun orden alfabetico</label>
+          <label htmlFor="orderCountries">Ordenar segun: </label>
           <select name="orderCountries" id="orderCountries" className="filterbutton" onChange={() => orderCountriesChange(document.getElementById("orderCountries").value)}>
             <option></option>
               <option value="ascendente">A-Z</option>
               <option value="descendente">Z-A</option>
           </select>
-          <label htmlFor="orderPoblacion">Segun poblacion</label>
+          <label htmlFor="orderPoblacion">O segun poblacion</label>
           <select name="orderPoblacion" id="orderPoblacion" className="filterbutton" onChange={() => orderPoblacionChange(document.getElementById("orderPoblacion").value)}>
             <option></option>
               <option value="ascendente">Ascendente</option>

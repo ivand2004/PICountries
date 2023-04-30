@@ -25,7 +25,7 @@ export default function SearchBar() {
         <input type='search' name="name" id="searchCountry"/>
         <button id='magnifier' onClick={() => searchCountryClick(document.getElementById('searchCountry').value)}>&#x1F50E;</button>
         <button id='homeButton' onClick={resetCountries}>Home</button>
-        <a href="http://localhost:3000/createactivity"><button id='add-activity'>Add Activity</button></a>
+        <a href="http://localhost:3000/createactivity"><button id='add-activity'>Agregar Actividad</button></a>
       </div>
    );
 }
