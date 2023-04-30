@@ -10,7 +10,7 @@ const router = Router();
 
 // Configurar los routers
 // Ejemplo: router.use('/auth', authRouter);
-router.get("/countries", getCountries) //La ruta de countreis?name, tambien se incluye en este controlador, chequeando si llego algo por query.
+router.get("/countries", getCountries)
 router.get("/countries/:idPais", getCountryId)
 router.get("/activities", getActivities)
 router.post("/activities", postActivities)

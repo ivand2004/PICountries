@@ -10,10 +10,9 @@ module.exports = (sequelize) => {
       primaryKey: true,
       unique: true,
       validate: {
-        // is: "^[A-Z]{3}$", // Chequear, pero la idea es tener un regex que se fije si el codigo son tres letras mayusculas
-        isAlpha: true, //Chequea que sean letras
-        isUppercase: true, //Chequea que sea uppercase
-        len: [3,3] //Chequea que la longitud sea mayor a 3 y menor a 3
+        isAlpha: true,
+        isUppercase: true,
+        len: [3,3] 
       }
     },
     name: {
@@ -30,7 +29,6 @@ module.exports = (sequelize) => {
     },
     capital:{
       type: DataTypes.STRING,
-      // allowNull: false, //Se lo tengo que sacar, porque Heard Island and McDonald Islands no tienen capital
     },
     population:{
       type: DataTypes.INTEGER,

@@ -16,21 +16,25 @@ export default function rootReducer(state = initialState, action){
                 filteredByActivity: [],
             }
         case "FILTER_COUNTRIES":
+            if(action.payload === "Todos") return{
+                ...state,
+                filteredByContinent: []
+            }
             if(state.filteredByActivity.length>0){
                 if([...state.filteredByActivity.filter(c => c.continent === action.payload)].length === 0) {
                     alert("No hay paises que coincidan")
                     return {...state}
-                } //SI NO SE CUMPLE CON LA CONDICION, TENGO QUE PODER AVISAR Y DECIR, CHE, NO HAY NADA ACA.
+                }
                 return {
                     ...state,
                     filteredByContinent: [...state.filteredByActivity.filter(c => c.continent === action.payload)],
-                    filteredByActivity: [], // La reseteo por si habia algo (?)
+                    filteredByActivity: state.filteredByActivity,
                 }
         }else if(state.searchedCountries.length>0){
             if([...state.searchedCountries.filter(c => c.continent === action.payload)].length === 0) {
                 alert("No hay paises que coincidan")
                 return {...state}
-            }//SI NO SE CUMPLE CON LA CONDICION, TENGO QUE PODER AVISAR Y DECIR, CHE, NO HAY NADA ACA.
+            }
             return {
                 ...state,
                 filteredByContinent: [...state.searchedCountries.filter(c => c.continent === action.payload)],
@@ -46,6 +50,10 @@ export default function rootReducer(state = initialState, action){
                 activities: action.payload
             }
         case "FILTER_ACTIVITIES":
+            if(action.payload === 0) return{
+                ...state,
+                filteredByActivity: []
+            }
             if(state.filteredByContinent.length>0){
                 if([...state.filteredByContinent.filter(c => c.activities?.some(activity => activity.id === action.payload))].length === 0) {
                     alert("No hay paises que coincidan")
@@ -53,7 +61,7 @@ export default function rootReducer(state = initialState, action){
                 }
                 return {
                     ...state,
-                    filteredByContinent: [], // Lo reseteo por si habia algo, asi no se pisan, en el UseEffect, el chequeo de filtered by continent va primero, por eso lo piso
+                    filteredByContinent: [],
                     filteredByActivity: [...state.filteredByContinent.filter(c => c.activities?.some(activity => activity.id === action.payload))],
                 }
         }else if(state.searchedCountries.length>0){

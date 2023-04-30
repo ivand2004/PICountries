@@ -27,7 +27,7 @@ module.exports = (sequelize) => {
       type: DataTypes.FLOAT,
       allowNull: false,
       validate: {
-        min: 0 //Chequear, la actividad puede ser de 0 minutos, no es correcto eso.
+        min: 0
       }
     },
     season: {

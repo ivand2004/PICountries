@@ -1,0 +1,92 @@
+#home-button {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  #home-button:hover {
+    background-color: #3e8e41;
+  }
+  
+  .detail-country {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+  }
+  
+  .name-tag {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 20px 0;
+    text-transform: uppercase;
+  }
+  
+  .id-tag {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #666;
+  }
+  
+  .image-tag {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+  }
+  
+  .continent-tag,
+  .capital-tag,
+  .population-tag,
+  .activity-tag {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 40px;
+    color: #333;
+  }
+  
+  .activity-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+  
+  .activity-li {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  @media only screen and (min-width: 768px) {
+    .detail-country {
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+  
+    .id-tag {
+      margin-bottom: 0;
+      margin-right: 20px;
+    }
+  
+    .image-tag {
+      max-width: 50%;
+      margin-right: 20px;
+    }
+  }
+  

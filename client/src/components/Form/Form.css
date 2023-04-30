@@ -1,0 +1,115 @@
+.formDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  #titleForm {
+    font-size: 36px;
+    margin-bottom: 20px;
+  }
+  
+  #home-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  #home-btn:hover {
+    background-color: #3e8e41;
+  }
+  
+  #activityform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .labelForm {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .formInp {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+  }
+  
+  .formInp:focus {
+    outline: none;
+    border-color: #4CAF50;
+  }
+  
+  .errP {
+    color: red;
+    font-size: 14px;
+    margin-top: 4px;
+    margin-bottom: 16px;
+  }
+
+  .submit-btn {
+    display: inline-block;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .submit-btn:hover {
+    background-color: #3e8e41;
+  }
+  
+  span {
+    display: flex;
+    align-items: center;
+    background-color: #ddd;
+    padding: 8px;
+    border-radius: 4px;
+    margin: 8px 0;
+  }
+  
+  span button {
+    margin-left: 8px;
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  span button:hover {
+    background-color: #d32f2f;
+  }
+  
